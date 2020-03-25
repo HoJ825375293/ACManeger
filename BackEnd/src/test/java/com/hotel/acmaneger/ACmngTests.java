@@ -1,10 +1,10 @@
-package com.acmaneger.maneger;
+package com.hotel.acmaneger;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ManegerApplicationTests {
+class ACmngTests {
 
     @Test
     void contextLoads() {
