@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/Home'
+import LogPage from './components/LogPage'
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import 'antd/dist/antd.css'
 
 ReactDOM.render(
     <Router>
-    <Route path="/" exact component={Home} />
+    <Route path="/" exact component={LogPage} />
     {/* <Route path="/login" component={LogPage} /> */}
     {/* <Route path="/register" component={RegisterPage} /> */}
     </Router>
