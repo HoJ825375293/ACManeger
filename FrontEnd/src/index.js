@@ -10,7 +10,7 @@ import 'antd/dist/antd.css'
 ReactDOM.render(
     <Router>
     {/*<Route path="/" exact component={UserPage} />*/}
-    <Route path='/' component={AdministratorPage}/>
+    <Route path='/' component={UserPage}/>
     {/* <Route path="/login" component={LogPage} /> */}
     {/* <Route path="/register" component={RegisterPage} /> */}
     </Router>

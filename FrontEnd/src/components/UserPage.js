@@ -13,7 +13,9 @@ import {
   Statistic,
   Avatar,
   Divider,
-  Progress
+  Progress,
+  Slider,
+  InputNumber
 } from "antd";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Redirect, Link } from "react-router-dom";
@@ -21,6 +23,12 @@ import { Redirect, Link } from "react-router-dom";
 //const { Meta } = Card;
 const {Countdown} = Statistic;
 const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+const marks = {
+    0: '0°C',
+    26: '26°C',
+    36: '36°C',
+    36: {  style: { color: '#f50',},label: <strong>36°C</strong>,}
+}
 
 class UserPage extends React.Component {
     state={
@@ -62,8 +70,14 @@ class UserPage extends React.Component {
         })
     }
 
+    onTemChange = value =>{
+        this.setState({
+            temprature:value
+        })
+    }
+
     render(){
-        const temprature = this.state.temprature;
+        const {temprature} = this.state;
         if(this.state.windForce === 0){
             var windForce = 0;
             var windText = "关机"
@@ -116,8 +130,19 @@ class UserPage extends React.Component {
                         <div style={{textAlign:"center"}}>
                             {workingMode}
                             <Divider type="vertical" style={{height:30}}/>    
-                            {temprature}℃
+                            {/*{temprature}℃*/}
+                            <InputNumber
+                                    min={0}
+                                    max={36}
+                                    formatter={value => `${value}℃`}
+                                    value={temprature}
+                                    onChange={this.onTemChange}
+                                    style={{marginLeft:10}}
+                            />
                         </div>
+                        <Row>
+                            <Slider marks={marks} min={0} max={36} onChange={this.onTemChange} value={typeof temprature === 'number'? temprature:0}/>
+                        </Row>
                     </Card>
                     <div style={{marginTop:10,textAlign:"center"}}>
                         <Col span={7}>
