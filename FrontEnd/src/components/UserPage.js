@@ -19,6 +19,7 @@ import {
 } from "antd";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Redirect, Link } from "react-router-dom";
+import AccountBar from './AccountBar'
 
 //const { Meta } = Card;
 const {Countdown} = Statistic;
@@ -99,9 +100,8 @@ class UserPage extends React.Component {
         }
         return(
             <div>
-            <Row style={{height:100}}>
-
-            </Row>
+            <AccountBar path='/'/>
+            
             <Row style={{height:100}}>
                 <Col span={5}/>
                 <Col span={12}>
@@ -129,7 +129,7 @@ class UserPage extends React.Component {
                     <div style={{textAlign:"center"}}><Progress strokeLinecap="square" type="dashboard" percent={windForce} format={() => `${windText}`} /></div>
                         <div style={{textAlign:"center"}}>
                             {workingMode}
-                            <Divider type="vertical" style={{height:30}}/>    
+                            <Divider type="vertical" style={{height:30, marginLeft:20, marginRight:10}}/>    
                             {/*{temprature}℃*/}
                             <InputNumber
                                     min={0}
@@ -137,7 +137,7 @@ class UserPage extends React.Component {
                                     formatter={value => `${value}℃`}
                                     value={temprature}
                                     onChange={this.onTemChange}
-                                    style={{marginLeft:10}}
+                                    
                             />
                         </div>
                         <Row>
