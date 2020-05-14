@@ -149,6 +149,9 @@ class AdminPage extends React.Component {
           count: 2,
         };
     }
+    on(){
+        
+    }
 
     onChangeRange = (value1, value2) =>{
     }
