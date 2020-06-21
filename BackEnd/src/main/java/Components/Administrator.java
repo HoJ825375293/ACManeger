@@ -84,8 +84,9 @@ public class Administrator {
 		return WaitingTime;
 	}
 
-	public Integer PowerON() { //开启空调电源，返回空调运行模式为设置模式
-		return SETMODE;
+	public void PowerON(Room r) { //开启空调电源，RoomID为要开启的房间号
+        int RoomId = r.getRoomId();
+
 	}
 	public void setPara(int mode, int lowerTem, int upperTem, int defaultTem, int FeeRate_H, int FeeRate_M, int FeeRate_L, int WaitTime) {
 		//设置空调主机工作的参数
