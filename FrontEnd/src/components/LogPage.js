@@ -9,10 +9,13 @@ import {
   message,
   Icon,
   Checkbox,
-  notification
+  notification,
+  Divider
 } from "antd";
 
 import { Redirect, Link } from "react-router-dom";
+import background from '../PIC/u1.png'
+
 const FormItem = Form.Item;
 class LogPage extends React.Component {
   state={
@@ -21,7 +24,9 @@ class LogPage extends React.Component {
     password: '',
     remind:'',
     rememberPassword: false,
-    fromPath:'/'
+    fromPath:'/',
+    redirect:false,
+    pathTo:'/AdminPage'
   }
 
   componentDidMount() {
@@ -35,16 +40,29 @@ class LogPage extends React.Component {
         console.log('Received values of form: ', values);
         }
      })
+    this.setState({
+      redirect:true,
+
+    })
   }
 
   render(){
     const {getFieldDecorator} = this.props.form;
+    const {redirect, pathTo} = this.state
+    
+    if(redirect == true){
+      return(<Redirect to={pathTo}/>)
+    }else
     return (
-      <div>
-          <Row style={{height:150}}></Row>
-          <Row style={{height:650}}>
-            <Col span={8} />
-            <Col span={8}>
+      <div style={{height:1000, width: '100%',
+      backgroundImage: `url(${background})`,backgroundSize: 'cover'}}>
+          <Row style={{height:100}}></Row>
+          <Row style={{height:130}}>
+            <h1 style={{textAlign:"center", fontSize:'50px', color:"white"}}>分布式温控系统</h1>
+          </Row>
+          <Row style={{height:550}}>
+            <Col span={9} />
+            <Col span={6}>
               <Card title="账户登录" extra={
                   <Link to={{ pathname:this.state.fromPath }}>
                     <Button type="link">返回</Button>
@@ -113,7 +131,19 @@ class LogPage extends React.Component {
 
               </Card>
             </Col>
-          <Col span={8} />
+        </Row>
+        <Row>
+          <div style={{textAlign:"center", fontSize:'25px'}}>
+            关于我们
+            <Divider style={{color:"black"}}type="vertical"/>
+            联系运营
+            <Divider style={{color:"black"}}type="vertical"/>
+            帮助文档
+            <Divider style={{color:"black"}}type="vertical"/>
+            代码地址
+            <Divider style={{color:"black"}}type="vertical"/>
+            意见反馈
+          </div>
         </Row>
       </div>
     );
