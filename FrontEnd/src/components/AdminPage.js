@@ -11,26 +11,12 @@ import {
   Divider,
   Menu,
   Table,
-  Popconfirm
+  Popconfirm,
+  Progress,
+  InputNumber
 } from "antd";
 import { Redirect, Link } from "react-router-dom";
 import AdminAvartar from '../PIC/u177.svg'
-
-const data = [
-  {
-    key:"1",
-    room:301,
-    state:"正在运行"
-  },{
-    key:"2",
-    room:302,
-    state:"等待中"
-  },{
-    key:"3",
-    room:303,
-    state:"关闭"
-  }
-]
 
 const EditableContext = React.createContext();
 const EditableRow = ({ form, index, ...props }) => (
@@ -118,18 +104,6 @@ class EditableCell extends React.Component {
 class AdminPage extends React.Component {
     constructor(props){
         super(props)
-
-        this.columns1 = [
-          {
-            title: '房间',
-            dataIndex: 'room',
-            width: '30%',
-          },
-          {
-            title: '状态',
-            dataIndex: 'state',
-          },
-        ]
 
         this.columns = [
             {
@@ -224,10 +198,12 @@ class AdminPage extends React.Component {
         this.setState({ dataSource: newData });
     };
 
+    onChange = (value) =>{
+      console.log('changed', value)
+    }
 
     render(){
         const {startTime, time, name, page} = this.state
-        const columns1 = this.columns1
 
         const { dataSource } = this.state;
         const components = {
@@ -304,9 +280,9 @@ class AdminPage extends React.Component {
                 <Col>
                 <Row style={{height:20}}/>
                 <Col span={1}/>
-                <Col span={8}>
+                <Col span={7}>
                     <Card
-                        style={{ width: 520, height:250 }}
+                        style={{ width: 480, height:250 }}
                     >
                     <div>
                     <Row>
@@ -320,28 +296,59 @@ class AdminPage extends React.Component {
                     <Row style={{marginTop:5}}><span style={{marginLeft:40,fontSize:20}}>现在时间: {time.toLocaleTimeString()}</span></Row>
                     </div>
                     </Card>
-
-                    <Card
-                        style={{ width: 520, height:200, marginTop:15 }}
-                    >
-                    <Icon type="tool" style={{marginLeft:170, fontSize:80}}/>
-                    <h3 style={{marginLeft:155, fontSize:35}}>设计中</h3>
-                    </Card>
                     
                     <Card
-                        style={{ width: 520, height:200, marginTop:15 }}
+                        style={{ width: 480, height:300,marginTop:15 }}
                     >
-                    <Icon type="tool" style={{marginLeft:170, fontSize:80}}/>
-                    <h3 style={{marginLeft:155, fontSize:35}}>设计中</h3>
+                    <span style={{marginLeft:40, fontSize:18}}>空调状态</span>
+                    <Divider/>
+                    <span style={{marginLeft:40, fontSize:18}}>运行中</span>
+                    <br/>
+                    <Progress percent={50} status="active"  showInfo={false} />
+                    <span style={{marginLeft:40, fontSize:18}}>等待中</span>
+                    <br/>
+                    <Progress percent={50} status="success" showInfo={false} />
+                    <span style={{marginLeft:40, fontSize:18}}>关机中</span>
+                    <br/>
+                    <Progress percent={50} status="exception" showInfo={false} />
                     </Card>
                 </Col>
-                <Col span={10}>
-                <Card >
-                    <Table columns={columns1} dataSource={data} 
-                    bordered
-                    title={() => '房间状态表'}
-                    footer={() => '更多房间待添加'}
+                <Col span={12}>
+                <Card
+                        style={{ width: 480, height:300}}
+                    >
+                    <span style={{marginLeft:40, fontSize:18}}>空调最低温度: </span>
+                    <InputNumber
+                      defaultValue={100}
+                      min={0}
+                      max={100}
+                      formatter={value => `${value}℃`}
+                      parser={value => value.replace('℃', '')}
+                      onChange={this.onChange}
                     />
+                </Card>
+                <Card
+                        style={{ width: 480, height:280, marginTop:15 }}
+                    >
+                    <div>
+                    <Row>
+                    <h1 style={{textAlign:"center"}}>管理员事项</h1>
+                    </Row>
+                    </div>
+                    <Divider/>
+                    <div>
+                    <Col span={24}>
+                      <Row style={{height:35}}>
+                      <span style={{marginLeft:40, fontSize:18}}>1, 设置空调温度范围</span>
+                      </Row>
+                      <Row style={{height:35}}>
+                      <span style={{marginLeft:40, fontSize:18}}>2, 空调调度队列属性</span>
+                      </Row>
+                      <Row style={{height:35}}>
+                      <span style={{marginLeft:40, fontSize:18}}>3, 温控系统更多功能待开发</span>
+                      </Row>
+                    </Col>
+                    </div>
                 </Card>
                 </Col>
                 </Col>
