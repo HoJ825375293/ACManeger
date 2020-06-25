@@ -276,27 +276,27 @@ class AdminPage extends React.Component {
                 >
                     <Menu.Item key="1">
                         <Icon type="pie-chart" />
-                        <span>系统状态</span>
+                        <span style={{fontSize:17}}>系统状态</span>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Icon type="desktop" />
-                        <span>用户列表</span>
+                        <span style={{fontSize:17}}>用户列表</span>
                     </Menu.Item>
                     <Menu.Item key="3">
                         <Icon type="inbox" />
-                        <span>联系运营</span>
+                        <span style={{fontSize:17}}>联系运营</span>
                     </Menu.Item>
                     <Menu.Item key="4">
                         <Icon type="inbox" />
-                        <span>捐赠支持</span>
+                        <span style={{fontSize:17}}>捐赠支持</span>
                     </Menu.Item>
                     <Menu.Item key="5">
                         <Icon type="inbox" />
-                        <span>使用说明</span>
+                        <span style={{fontSize:17}}>使用说明</span>
                     </Menu.Item>
                     <Menu.Item key="6">
                         <Icon type="desktop" />
-                        <span>退出登录</span>
+                        <span style={{fontSize:17}}>退出登录</span>
                     </Menu.Item>
                 </Menu>
                 </Col>
@@ -324,15 +324,15 @@ class AdminPage extends React.Component {
                     <Card
                         style={{ width: 520, height:200, marginTop:15 }}
                     >
-                    <Icon type="tool" style={{marginLeft:150, fontSize:80}}/>
-                    <h3 style={{marginLeft:135, fontSize:35}}>设计中</h3>
+                    <Icon type="tool" style={{marginLeft:170, fontSize:80}}/>
+                    <h3 style={{marginLeft:155, fontSize:35}}>设计中</h3>
                     </Card>
                     
                     <Card
                         style={{ width: 520, height:200, marginTop:15 }}
                     >
-                    <Icon type="tool" style={{marginLeft:150, fontSize:80}}/>
-                    <h3 style={{marginLeft:135, fontSize:35}}>设计中</h3>
+                    <Icon type="tool" style={{marginLeft:170, fontSize:80}}/>
+                    <h3 style={{marginLeft:155, fontSize:35}}>设计中</h3>
                     </Card>
                 </Col>
                 <Col span={10}>
@@ -356,7 +356,7 @@ class AdminPage extends React.Component {
                 <Icon style={{margin:"15px",fontSize: '35px',color:"white"}} type="menu-fold" />
                 <span style={{margin:"15px",fontSize: '35px',color:"white"}}>温控计费系统</span>
                 <Icon style={{margin:"15px",fontSize: '35px',color:"#87CEEB"}} type="code-sandbox" />
-                <span style={{margin:"15px",fontSize: '35px',color:"white"}}>用户端</span>
+                <span style={{margin:"15px",fontSize: '35px',color:"white"}}>管理员端</span>
                 </Row>
             </div>
             <Row style={{height:500}}>
@@ -372,27 +372,27 @@ class AdminPage extends React.Component {
                 >
                     <Menu.Item key="1">
                         <Icon type="pie-chart" />
-                        <span>系统状态</span>
+                        <span style={{fontSize:17}}>系统状态</span>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Icon type="desktop" />
-                        <span>用户列表</span>
+                        <span style={{fontSize:17}}>用户列表</span>
                     </Menu.Item>
                     <Menu.Item key="3">
                         <Icon type="inbox" />
-                        <span>联系运营</span>
+                        <span style={{fontSize:17}}>联系运营</span>
                     </Menu.Item>
                     <Menu.Item key="4">
                         <Icon type="inbox" />
-                        <span>捐赠支持</span>
+                        <span style={{fontSize:17}}>捐赠支持</span>
                     </Menu.Item>
                     <Menu.Item key="5">
                         <Icon type="inbox" />
-                        <span>使用说明</span>
+                        <span style={{fontSize:17}}>使用说明</span>
                     </Menu.Item>
                     <Menu.Item key="6">
                         <Icon type="desktop" />
-                        <span>退出登录</span>
+                        <span style={{fontSize:17}}>退出登录</span>
                     </Menu.Item>
                 </Menu>
                 </Col>

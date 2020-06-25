@@ -136,23 +136,23 @@ class UserPage extends React.Component {
                 >
                     <Menu.Item key="1">
                         <Icon type="pie-chart" />
-                        <span>空调控制</span>
+                        <span style={{fontSize:17}}>空调控制</span>
                     </Menu.Item>
                     <Menu.Item key="2">
                         <Icon type="desktop" />
-                        <span>使用说明</span>
+                        <span style={{fontSize:17}}>使用说明</span>
                     </Menu.Item>
                     <Menu.Item key="3">
                         <Icon type="inbox" />
-                        <span>联系运营</span>
+                        <span style={{fontSize:17}}>联系运营</span>
                     </Menu.Item>
                     <Menu.Item key="4">
                         <Icon type="inbox" />
-                        <span>捐赠支持</span>
+                        <span style={{fontSize:17}}>捐赠支持</span>
                     </Menu.Item>
                     <Menu.Item key="5">
                         <Icon type="inbox" />
-                        <span>退出登录</span>
+                        <span style={{fontSize:17}}>退出登录</span>
                     </Menu.Item>
                 </Menu>
                 </Col>
