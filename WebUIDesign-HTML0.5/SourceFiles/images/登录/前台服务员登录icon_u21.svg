@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M 0 0  L 1024 0  L 1024 1024  L 0 1024  Z " fill-rule="evenodd" fill="black" id="path440" />
+    <clipPath id="clip441">
+      <use xlink:href="#path440" />
+    </clipPath>
+    <filter x="-50.00%" y="-50.00%" width="200.00%" height="200.00%" filterUnits="objectBoundingBox" id="filter442">
+      <feColorMatrix type="matrix" values="1 0 0 0 0.266666666666667  0 1 0 0 0.266666666666667  0 0 1 0 0.266666666666667  0 0 0 1 0  " in="SourceGraphic" />
+    </filter>
+  </defs>
+  <g transform="matrix(1 0 0 1 -831 -606 )">
+    <g transform="matrix(0.0390625 0 0 0.0390625 831 606 )" clip-path="url(#clip441)" filter="url(#filter442)">
+      <path d="M512 362.666667a106.666667 106.666667 0 1 1 106.666667-106.666667 106.666667 106.666667 0 0 1-106.666667 106.666667z m0-170.666667a64 64 0 1 0 64 64 64 64 0 0 0-64-64z" p-id="5844"></path>
+      <path d="M682.666667 554.666667h-42.666667c0-121.173333-37.12-170.666667-128-170.666667s-128 49.493333-128 170.666667h-42.666667c0-91.52 17.706667-213.333333 170.666667-213.333334s170.666667 121.813333 170.666667 213.333334z" p-id="5845"></path>
+      <path d="M192 512h640v42.666667H192z" p-id="5846"></path>
+      <path d="M789.333333 853.333333H234.666667V512h533.333333v42.666667H277.333333v256h469.333334v-170.666667h42.666666v213.333333z" p-id="5847"></path>
+    </g>
+  </g>
+</svg>
