@@ -260,7 +260,7 @@ class AdminPage extends React.Component {
                 <Icon style={{margin:"15px",fontSize: '35px',color:"white"}} type="menu-fold" />
                 <span style={{margin:"15px",fontSize: '35px',color:"white"}}>温控计费系统</span>
                 <Icon style={{margin:"15px",fontSize: '35px',color:"#87CEEB"}} type="code-sandbox" />
-                <span style={{margin:"15px",fontSize: '35px',color:"white"}}>用户端</span>
+                <span style={{margin:"15px",fontSize: '35px',color:"white"}}>管理员端</span>
                 </Row>
             </div>
             <Row style={{height:500}}>
