@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ACManeger.iml" filepath="$PROJECT_DIR$/.idea/ACManeger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ktClient/KtClient.iml" filepath="$PROJECT_DIR$/../ktClient/KtClient.iml" />
     </modules>
   </component>
 </project>
