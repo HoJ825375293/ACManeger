@@ -26,9 +26,10 @@ import UserAvartar from '../PIC/u50.svg'
 //const { Meta } = Card;
 const marks = {
     0: '0°C',
-    26: '26°C',
-    36: '36°C',
-    36: {  style: { color: '#f50',},label: <strong>36°C</strong>,}
+    18: '18°C',
+    25: '25°C',
+    18: {  style: { color: '#2E8B57',},label: <strong>18°C</strong>,},
+    25: {  style: { color: '#f50',},label: <strong>25°C</strong>,}
 }
 
 class UserPage extends React.Component {
@@ -249,7 +250,7 @@ class UserPage extends React.Component {
                             />
                         </div>
                         <Row>
-                            <Slider marks={marks} min={0} max={36} onChange={this.onTemChange} value={typeof temprature === 'number'? temprature:0}/>
+                            <Slider marks={marks} min={0} max={25} onChange={this.onTemChange} value={typeof temprature === 'number'? temprature:0}/>
                         </Row>
                     </Card>
                     <div style={{marginTop:10,textAlign:"center"}}>
