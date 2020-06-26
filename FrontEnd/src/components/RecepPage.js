@@ -1,7 +1,5 @@
-import React, { Component, Fragment}from "react";
-import { Button,Input, Tooltip, Select, Col, Row, Menu, Dropdown, Icon, Table,Divider, Card} from 'antd';
-
-import { Redirect, Link } from "react-router-dom";
+import React, { Fragment}from "react";
+import { Button,Input, Tooltip, Col, Row, Menu, Dropdown, Icon, Table,Divider, Card} from 'antd';
 
 const InputGroup = Input.Group;
 

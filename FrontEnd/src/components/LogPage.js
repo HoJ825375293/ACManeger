@@ -6,12 +6,12 @@ import {
   Form,
   Input,
   Button,
-  message,
   Icon,
   Checkbox,
-  notification,
   Divider
 } from "antd";
+
+import $ from 'jquery'
 
 import { Redirect, Link } from "react-router-dom";
 import background from '../PIC/u1.png'

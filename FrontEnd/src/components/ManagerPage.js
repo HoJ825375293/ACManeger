@@ -15,9 +15,6 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import ManagerAvartar from '../PIC/u299.svg'
 
-var echarts = require('echarts');
-var myChart;
-
 moment.locale('zh-cn')
 
 const {RangePicker} = DatePicker
