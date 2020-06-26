@@ -13,10 +13,12 @@ import {
   Table,
   Popconfirm,
   Progress,
-  InputNumber
+  InputNumber,
+  message
 } from "antd";
-import { Redirect, Link } from "react-router-dom";
+
 import AdminAvartar from '../PIC/u177.svg'
+import store from '../store'
 
 const EditableContext = React.createContext();
 const EditableRow = ({ form, index, ...props }) => (
@@ -121,16 +123,10 @@ class AdminPage extends React.Component {
               title: '风速',
               dataIndex: 'wind',
               editable: true,
-            },
-            {
-              title: '操作',
-              dataIndex: 'operation',
-              render: (text, record) =>
-                this.state.dataSource.length >= 1 ? (
-                  <Popconfirm title="确定删除?" cancelText="不" okText="是" onConfirm={() => this.handleDelete(record.key)}>
-                    <a>删除</a>
-                  </Popconfirm>
-                ) : null,
+            },{
+              title: '费用',
+              dataIndex: 'money',
+              editable: true,
             },
         ];
 
@@ -142,24 +138,62 @@ class AdminPage extends React.Component {
             dataSource: [
                 {
                   key: '0',
-                  room: '301',
-                  temperature: 26,
-                  wind: '中风',
+                  room: '101',
+                  temperature: 25,
+                  wind: '关机',
+                  windForce:0,
+                  money: 0,
+                  env:32
                 },
                 {
                   key: '1',
-                  room: '302',
-                  temperature: 26,
+                  room: '102',
+                  temperature: 25,
                   wind: '关机',
+                  windForce:0,
+                  money: 0,
+                  env:28,
+                },{
+                  key: '2',
+                  room: '103',
+                  temperature: 25,
+                  wind: '关机',
+                  windForce:0,
+                  money: 0,
+                  env:30,
+                },{
+                  key: '3',
+                  room: '104',
+                  temperature: 25,
+                  wind: '关机',
+                  windForce:0,
+                  money: 0,
+                  env:29
+                },{
+                  key: '4',
+                  room: '105',
+                  temperature: 25,
+                  wind: '关机',
+                  windForce:0,
+                  money: 0,
+                  env:35
                 },
               ],
-            count: 2
+            count: 5
         }
         setInterval(function(){
             this.setState({
                 time:new Date()
             })
         }.bind(this), 1000)
+
+        store.subscribe(() => {
+          const data = store.getState().roomList;
+          this.setState({
+            dataSource:data
+          })
+          console.log("aaa")
+        })
     }
 
     onTableClick = (e) =>{
@@ -200,6 +234,15 @@ class AdminPage extends React.Component {
 
     onChange = (value) =>{
       console.log('changed', value)
+    }
+
+    onFake = () =>{
+      const action={
+        type:"Set",
+        roomList:this.state.dataSource
+      }
+      store.dispatch(action)
+      message.success("启动空调!")
     }
 
     render(){
@@ -304,28 +347,63 @@ class AdminPage extends React.Component {
                     <Divider/>
                     <span style={{marginLeft:40, fontSize:18}}>运行中</span>
                     <br/>
-                    <Progress percent={50} status="active"  showInfo={false} />
+                    <Progress percent={0} status="active"  showInfo={false} />
                     <span style={{marginLeft:40, fontSize:18}}>等待中</span>
                     <br/>
-                    <Progress percent={50} status="success" showInfo={false} />
+                    <Progress percent={0} status="success" showInfo={false} />
                     <span style={{marginLeft:40, fontSize:18}}>关机中</span>
                     <br/>
-                    <Progress percent={50} status="exception" showInfo={false} />
+                    <Progress percent={100} status="exception" showInfo={false} />
                     </Card>
                 </Col>
                 <Col span={12}>
                 <Card
                         style={{ width: 480, height:300}}
                     >
+                    <span style={{marginLeft:40, fontSize:18}}>设置参数</span>
+                    <Divider/>
                     <span style={{marginLeft:40, fontSize:18}}>空调最低温度: </span>
                     <InputNumber
-                      defaultValue={100}
+                      defaultValue={18}
                       min={0}
                       max={100}
                       formatter={value => `${value}℃`}
                       parser={value => value.replace('℃', '')}
                       onChange={this.onChange}
                     />
+                    <br />
+                    <span style={{marginLeft:40, fontSize:18}}>空调最高温度: </span>
+                    <InputNumber
+                      defaultValue={25}
+                      min={0}
+                      max={100}
+                      formatter={value => `${value}℃`}
+                      parser={value => value.replace('℃', '')}
+                      onChange={this.onChange}
+                    />
+                    <br/>
+                    <span style={{marginLeft:40, fontSize:18}}>空调模式: </span>
+                    <InputNumber
+                      defaultValue={"制冷"}
+                      min={0}
+                      max={100}
+                      style={{marginLeft:37}}
+                      formatter={value => `${value}`}
+                      onChange={this.onChange}
+                    />
+                    <br/>
+                    <span style={{marginLeft:40, fontSize:18}}>费率: </span>
+                    <InputNumber
+                      defaultValue={1}
+                      min={0}
+                      max={100}
+                      style={{marginLeft:72}}
+                      formatter={value => `${value}`}
+                      onChange={this.onChange}
+                    />
+                    <Row>
+                      <Button type="primary" style={{marginLeft:140,marginTop:10}} onClick={this.onFake} >启动/设置</Button>
+                    </Row>
                 </Card>
                 <Card
                         style={{ width: 480, height:280, marginTop:15 }}

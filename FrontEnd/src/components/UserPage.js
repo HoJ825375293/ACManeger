@@ -10,68 +10,107 @@ import {
   Progress,
   Slider,
   InputNumber,
+  message,
   Menu
 } from "antd";
 
 import UserAvartar from '../PIC/u50.svg'
+import store from "../store";
 
 const marks = {
     0: '0°C',
     18: '18°C',
     36: '36°C',
     18: {  style: { color: '#2E8B57',},label: <strong>18°C</strong>,},
+    25: {  style: { color: '#2E8B57',},label: <strong>25°C</strong>,},
     36: {  style: { color: '#f50',},label: <strong>36°C</strong>,}
 }
 
-
+var low = 18
+var high = 25
 
 class UserPage extends React.Component {
     constructor(props){
         super(props)
 
         this.state={
-            temprature:26,
+            roomId:this.props.location.state.name,
+            env:31,
+            temprature:25,
             windForce:0,
             workingMode:0,
-            windText:"关机",
-            roomId:"301",
             startTime:new Date(),
             time:new Date(),
             elec:0,
-            money:0
+            money:0,
         }
+
         setInterval(function(){
             this.setState({
-                time:new Date()
+                time:new Date(),
             })
         }.bind(this), 1000)
         setInterval(function(){
             const temp = (this.state.time - this.state.startTime)/1000
             const elec = parseInt(temp)
-            console.log(elec)
         }.bind(this), 60000)
+    }
+
+
+    componentDidMount(){
+        const roomList = store.getState().roomList
+        for(var i = 0; i<roomList.length;i++){
+            if(roomList[i].room == this.state.roomId){
+                this.setState({
+                    temperature: roomList[i].temperature,
+                    windForce: roomList[i].windForce,
+                    money: roomList[i].money,
+                    env:roomList[i].env,
+                })
+                break;
+            }
+        }
+    }
+
+    componentDidUpdate(){
+        
+    }
+
+    OpenAc = () => {
+        if(this.state.windForce === 0){
+        this.setState({
+            windForce:2
+        })}else{
+            this.setState({
+                windForce:0
+            })
+        }
     }
 
     onTemUpOne = () => {
         var tem = this.state.temprature + 1
+        if(tem > high){
+            message.error("超出调温范围")
+            this.setState({
+                temprature:high
+            })
+        }else{
         this.setState({
             temprature: tem
-        })
-    }
-
-    componentDidMount(){
-        const room = this.props.location.state.name
-        console.log(room)
-        this.setState({
-            roomId:room
-        })
+        })}
     }
 
     onTemLowOne = () =>{
         var tem = this.state.temprature - 1
+        if(tem < low){
+            message.error("超出调温范围")
+            this.setState({
+                temprature:low
+            })
+        }else{
         this.setState({
             temprature: tem
-        })
+        })}
     }
 
     ChangeWorkingMode = () =>{
@@ -89,25 +128,61 @@ class UserPage extends React.Component {
     }
 
     onTemChange = value =>{
-        this.setState({
-            temprature:value
-        })
+        if(value < low){
+            message.error("超出调温范围")
+            this.setState({
+                temprature:low
+            })
+        }else if(value > high){
+            message.error("超出调温范围")
+            this.setState({
+                temprature:high
+            })
+        }else{
+            this.setState({
+                temprature:value
+            })
+        }
     }
 
     render(){
         const {temprature} = this.state;
+        var roomList = store.getState().roomList
+        for(var i = 0; i<roomList.length;i++){
+            if(roomList[i].room == this.state.roomId){
+                roomList[i].temperature = temprature
+                roomList[i].windForce = this.state.windForce
+                var text
+                if(this.state.windForce === 0 ){
+                    text = "关机"
+                }else if(this.state.windForce === 1){
+                    text = "低风"
+                }else if(this.state.windForce === 2){
+                    text = "中风"
+                }else{
+                    text = "高风"
+                }
+                roomList[i].wind = text;
+                break;
+            }
+        }
+        const action={
+            type:"Set",
+            roomList:roomList
+        }
+        store.dispatch(action)
         if(this.state.windForce === 0){
             var windForce = 0;
             var windText = "关机"
         }else if(this.state.windForce === 1){
             var windForce = 33;
-            var windText = "低速"
+            var windText = "低风"
         }else if(this.state.windForce === 2){
             var windForce = 66;
-            var windText = "中速"
+            var windText = "中风"
         }else if(this.state.windForce === 3){
             var windForce = 100;
-            var windText = "高速"
+            var windText = "高风"
         }
         
         if(this.state.workingMode === 0){
@@ -115,7 +190,7 @@ class UserPage extends React.Component {
         }else if(this.state.workingMode === 1){
             var workingMode = "制热";
         }
-        const {roomId, startTime, time, money, elec} = this.state
+        const {roomId, startTime, time, money, elec, env} = this.state
 
         return(
             <div>
@@ -241,21 +316,17 @@ class UserPage extends React.Component {
                         <div style={{textAlign:"center"}}>
                             {workingMode}
                             <Divider type="vertical" style={{height:30, marginLeft:20, marginRight:10}}/>    
-                            {/*{temprature}℃*/}
-                            <InputNumber
-                                    min={0}
-                                    max={36}
-                                    formatter={value => `${value}℃`}
-                                    value={temprature}
-                                    onChange={this.onTemChange}
-                                    
-                            />
+                            <span>环境:{env}℃</span>
                         </div>
                         <Row>
                             <Slider marks={marks} min={0} max={36} onChange={this.onTemChange} value={typeof temprature === 'number'? temprature:0}/>
                         </Row>
                     </Card>
                     <div style={{marginTop:10,textAlign:"center"}}>
+                        <Row style ={{height:50}}>
+                            <Button type="primary" onClick={this.OpenAc}>开机</Button>
+                        </Row>    
+                        <Row>
                         <Col span={7}>
                         <Button style={{marginLeft:50, marginTop:60}}onClick={this.ChangeWorkingMode}>模式</Button>
                         </Col>
@@ -269,6 +340,7 @@ class UserPage extends React.Component {
                         <Col span={8}>
                         <Button style={{marginLeft:10, marginTop:60}} onClick={this.ChangeWindForce}>风速</Button>
                         </Col>
+                        </Row>
                     </div>
                 </Card>
                 </Col>
@@ -281,20 +353,3 @@ class UserPage extends React.Component {
 }
 
 export default UserPage;
-
-/*
-<Row style={{height:100}}>
-                <Col span={5}/>
-                <Col span={12}>
-                    <Countdown title="等待中" value={deadline} onFinish={this.onFinishCount} />
-                </Col>
-            </Row>
-
-<Meta
-                    style={{height: 50}}
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title="我的空调遥控"
-                    //description={temprature}
-                    > 
-                    </Meta>
-*/
