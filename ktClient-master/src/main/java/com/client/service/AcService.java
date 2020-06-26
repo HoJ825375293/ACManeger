@@ -109,6 +109,7 @@ public class AcService {
         Calendar calendar = Calendar.getInstance();
         timer.schedule(scheduleTask,calendar.getTime(),30000); //单位毫秒
 		ServerSocket ss = new ServerSocket(8088);
+
         boolean flag = true;
         while (flag) {
             try {

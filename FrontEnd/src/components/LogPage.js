@@ -20,8 +20,8 @@ const FormItem = Form.Item;
 class LogPage extends React.Component {
   state={
     redirect:false,
-    username: '',
-    password: '',
+    username: "101",
+    password: "1234",
     remind:'',
     rememberPassword: false,
     fromPath:'/',
@@ -38,48 +38,33 @@ class LogPage extends React.Component {
     this.props.form.validateFields((err,values)=>{
       if(!err){
         console.log('Received values of form: ', values);
-        let formData = new FormData();
-        formData.append("user",values.username);
-        formData.append("pwd",values.password);
         if(values.username == 101 || values.username == 102
           || values.username == 103 || values.username == 104
           || values.username == 105){
           if(values.password == 1234){
-            this.setState({
-              redirect:true,
-              pathTo:'/userPage'
-            })
+            
+            this.props.history.push({pathname: "/userPage" ,state:{name:values.username}})
           }else{
             alert("密码错误")
           }}
           if(values.username == 110){
             if(values.password == 1234){
-              this.setState({
-                redirect:true,
-                pathTo:'/AdminPage'
-              })
+              this.props.history.push({pathname: "/AdminPage" ,state:{name:values.username}})
             }else{
               alert("密码错误")
             }}
             if(values.username == 500){
               if(values.password == 1234){
-                this.setState({
-                  redirect:true,
-                  pathTo:'/ManagerPage'
-                })
+                this.props.history.push({pathname: "/ManagerPage" ,state:{name:values.username}})
               }else{
                 alert("密码错误")
               }}
               if(values.username == 999)
                 if(values.password == 1234){
-                  this.setState({
-                    redirect:true,
-                    pathTo:'/RecepPage'
-                  })
+                  this.props.history.push({pathname: "/RecepPage" ,state:{name:values.username}})
                 }else{
                   alert("密码错误")
                 }
-
         }
      })
   }
@@ -119,7 +104,7 @@ class LogPage extends React.Component {
                           },
                           {
                             min:3,max:20,
-                            message:'长度最小为4,最长为20'
+                            message:'长度最小为3,最长为20'
                           },
                           {
                             pattern:new RegExp('^\\w+$','g'),

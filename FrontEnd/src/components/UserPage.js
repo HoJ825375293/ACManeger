@@ -3,8 +3,6 @@ import {
   Row,
   Col,
   Card,
-  Form,
-  Input,
   Button,
   Icon,
   Avatar,
@@ -16,9 +14,7 @@ import {
 } from "antd";
 
 import UserAvartar from '../PIC/u50.svg'
-import $ from 'jquery'
 
-//const { Meta } = Card;
 const marks = {
     0: '0°C',
     18: '18°C',
@@ -26,17 +22,22 @@ const marks = {
     18: {  style: { color: '#2E8B57',},label: <strong>18°C</strong>,},
     36: {  style: { color: '#f50',},label: <strong>36°C</strong>,}
 }
+const ws = new WebSocket('ws://localhost:8088')
+
+ws.onopen = function(evt){
+    console.log("aaaaa")
+}
 
 class UserPage extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
 
         this.state={
             temprature:26,
             windForce:0,
             workingMode:0,
             windText:"关机",
-            roomId:301,
+            roomId:"301",
             startTime:new Date(),
             time:new Date(),
             elec:0,
@@ -47,10 +48,11 @@ class UserPage extends React.Component {
                 time:new Date()
             })
         }.bind(this), 1000)
-    }
-
-    onFinishCount() {
-        console.log('finished')
+        setInterval(function(){
+            const temp = (this.state.time - this.state.startTime)/1000
+            const elec = parseInt(temp)
+            console.log(elec)
+        }.bind(this), 60000)
     }
 
     onTemUpOne = () => {
@@ -61,7 +63,11 @@ class UserPage extends React.Component {
     }
 
     componentDidMount(){
-        
+        const room = this.props.location.state.name
+        console.log(room)
+        this.setState({
+            roomId:room
+        })
     }
 
     onTemLowOne = () =>{
