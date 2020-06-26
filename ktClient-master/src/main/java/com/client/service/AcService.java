@@ -13,10 +13,15 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
 
 import com.client.entity.Bill;
 import com.client.entity.BillList;
@@ -103,6 +108,39 @@ public class AcService {
 	int newRequest(Integer roomId,Integer wind,double temperature,String create_time) {
 		return mapper.newRequest(roomId, wind, temperature, create_time);
 	}
+
+	/**concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。*/
+	private static ConcurrentHashMap<String,AcService> webSocketMap = new ConcurrentHashMap<>();
+	private Session session;
+	/**接收userId*/
+	private String roomId="";
+
+	@OnOpen
+	public void onOpen(Session session,@PathParam("roomId") String roomId) {
+		this.session = session;
+		this.roomId=roomId;
+		try {
+			sendMessage("连接成功");
+		} catch (IOException e) {
+		}
+	}
+
+	@OnClose
+	public void onClose() {
+		if(webSocketMap.containsKey(roomId)){
+			webSocketMap.remove(roomId);
+		}
+	}
+
+	@OnMessage
+	public void onMessage(String message, Session session) {
+		System.out.println("用户消息:"+roomId+",报文:"+message);
+	}
+
+	public void sendMessage(String message) throws IOException {
+		this.session.getBasicRemote().sendText(message);
+	}
+
 	public void start() throws IOException {
         Timer timer = new Timer();
         ScheduleTask scheduleTask = new ScheduleTask();
@@ -118,6 +156,7 @@ public class AcService {
                 OutputStream outputStream = s.getOutputStream();
             	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String nowtime = df.format(new Date());// new Date()为获取当前系统时间
+
                 byte[] buf = new byte[1024];
                 int len = in.read(buf);
                 String data = new String(buf, 0, len);
@@ -250,7 +289,7 @@ public class AcService {
                 }
                 else System.out.println("命令错误，没有此类消息");
                 
-                System.err.print(data);
+                
                 outputStream.write(("OK").getBytes());
                 if (data.equals("关闭")) {
                     flag = false;
