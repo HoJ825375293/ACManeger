@@ -22,11 +22,8 @@ const marks = {
     18: {  style: { color: '#2E8B57',},label: <strong>18°C</strong>,},
     36: {  style: { color: '#f50',},label: <strong>36°C</strong>,}
 }
-const ws = new WebSocket('ws://localhost:8088')
 
-ws.onopen = function(evt){
-    console.log("aaaaa")
-}
+
 
 class UserPage extends React.Component {
     constructor(props){

@@ -289,7 +289,7 @@ public class AcService {
                 }
                 else System.out.println("命令错误，没有此类消息");
                 
-                
+                System.err.print(data);
                 outputStream.write(("OK").getBytes());
                 if (data.equals("关闭")) {
                     flag = false;
