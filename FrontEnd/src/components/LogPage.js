@@ -8,13 +8,15 @@ import {
   Button,
   Icon,
   Checkbox,
-  Divider
+  Divider,
+  message
 } from "antd";
 
 import { Redirect, Link } from "react-router-dom";
 import background from '../PIC/u1.png'
 
 const FormItem = Form.Item;
+
 class LogPage extends React.Component {
   state={
     redirect:false,
@@ -36,12 +38,50 @@ class LogPage extends React.Component {
     this.props.form.validateFields((err,values)=>{
       if(!err){
         console.log('Received values of form: ', values);
+        let formData = new FormData();
+        formData.append("user",values.username);
+        formData.append("pwd",values.password);
+        if(values.username == 101 || values.username == 102
+          || values.username == 103 || values.username == 104
+          || values.username == 105){
+          if(values.password == 1234){
+            this.setState({
+              redirect:true,
+              pathTo:'/userPage'
+            })
+          }else{
+            alert("密码错误")
+          }}
+          if(values.username == 110){
+            if(values.password == 1234){
+              this.setState({
+                redirect:true,
+                pathTo:'/AdminPage'
+              })
+            }else{
+              alert("密码错误")
+            }}
+            if(values.username == 500){
+              if(values.password == 1234){
+                this.setState({
+                  redirect:true,
+                  pathTo:'/ManagerPage'
+                })
+              }else{
+                alert("密码错误")
+              }}
+              if(values.username == 999)
+                if(values.password == 1234){
+                  this.setState({
+                    redirect:true,
+                    pathTo:'/RecepPage'
+                  })
+                }else{
+                  alert("密码错误")
+                }
+
         }
      })
-    this.setState({
-      redirect:true,
-
-    })
   }
 
   render(){
@@ -78,7 +118,7 @@ class LogPage extends React.Component {
                             message:'用户名不能为空'
                           },
                           {
-                            min:4,max:20,
+                            min:3,max:20,
                             message:'长度最小为4,最长为20'
                           },
                           {
@@ -89,7 +129,7 @@ class LogPage extends React.Component {
                       })(
                         <Input 
                           prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)'}}/>} 
-                          placeholder='username:2017211'
+                          placeholder='username:101'
                         ></Input>
                       )
                     }
@@ -107,7 +147,7 @@ class LogPage extends React.Component {
                       })(
                         <Input 
                           prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)'}}/>} 
-                          placeholder='password:123456' type='password'
+                          placeholder='password:1234' type='password'
                         ></Input>
                       )
                     }

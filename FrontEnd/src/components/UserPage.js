@@ -16,6 +16,7 @@ import {
 } from "antd";
 
 import UserAvartar from '../PIC/u50.svg'
+import $ from 'jquery'
 
 //const { Meta } = Card;
 const marks = {
@@ -57,6 +58,10 @@ class UserPage extends React.Component {
         this.setState({
             temprature: tem
         })
+    }
+
+    componentDidMount(){
+        
     }
 
     onTemLowOne = () =>{
